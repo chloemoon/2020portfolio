@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MYS : Moon Chloe Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/style.css">
+  <script src="./js/jquery-1.12.4.min.js"></script>
+  <script src="./js/TweenMax.min.js"></script>
+  <script src="./js/function.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      document.addEventListener('mousemove', function (e) {
+        let mousemove = document.querySelector('.mousemove');
+        let circle = document.createElement('strong');
+        let x = e.offsetX;
+        let y = e.offsetY;
+        circle.style.left = x + "px";
+        circle.style.top = y + "px";
+        let size = Math.random() * 100;
+        circle.style.width = 20 + size + "px";
+        circle.style.height = 20 + size + "px";
+        mousemove.appendChild(circle);
+        setTimeout(function () {
+          circle.remove();
+        }, 1800);
+      });
+
+
+      // 팝업창 움직이기
+      const box = document.querySelector('.info_popup>.box');
+
+      let drag = false;
+      let originTop;
+      let originLeft;
+      let originX;
+      let originY;
+
+      box.addEventListener('mousedown', e => {
+        drag = true;
+
+        // 클릭이 일어난 순간에 상대적 위치 저장
+        originTop = box.offsetTop;
+        originLeft = box.offsetLeft;
+        originX = e.clientX;
+        originY = e.clientY;
+        console.log(e);
+      })
+
+      document.addEventListener('mouseup', e => {
+        drag = false;
+      })
+
+      document.addEventListener('mousemove', e => {
+        if (drag) {
+          // 상대적 위치를 유지하며 박스 위치 변경
+          const diffX = e.clientX - originX;
+          const diffY = e.clientY - originY;
+          const largeBox = document.querySelector('.outer').getBoundingClientRect();
+          const smallBox = box.getBoundingClientRect();
+
+          //Math.min(Math.max(최소위치, resultX), 최대위치)
+          const resultTop = Math.min(
+            Math.max(0, originTop + diffY),
+            largeBox.height - smallBox.height
+          );
+          const resultLeft = Math.min(
+            Math.max(0, originLeft + diffX),
+            largeBox.width - smallBox.width
+          );
+
+          //최종 box위치
+          box.style.top = `${resultTop}px`;
+          box.style.left = `${resultLeft}px`;
+        }
+
+      })
+    });
+  </script>
+</head>
+
+<body>
+  <div id="wrap">
+    <header>
+      <div class="bgImage">
+        <svg class="blobCont">
+          <image xlink:href="./images/bubble_bg.png" mask="url(#mask)" width="100%" height="200%"
+            preserveAspectRatio="xMidYMid slice" />
+          <defs>
+            <filter id="gooey" height="130%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="15" result="blur" />
+              <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
+                result="goo" />
+            </filter>
+          </defs>
+          <mask id="mask" x="0" y="0">
+            <g style="filter: url(#gooey)">
+              <circle class="blob" cx="10%" cy="10%" r="80" fill="black" stroke="white" />
+              <circle class="blob" cx="50%" cy="10%" r="40" fill="black" stroke="white" />
+              <circle class="blob" cx="17%" cy="15%" r="70" fill="black" stroke="white" />
+              <circle class="blob" cx="90%" cy="20%" r="120" fill="black" stroke="white" />
+              <circle class="blob" cx="30%" cy="25%" r="30" fill="black" stroke="white" />
+              <circle class="blob" cx="50%" cy="60%" r="80" fill="black" stroke="white" />
+              <circle class="blob" cx="70%" cy="90%" r="10" fill="black" stroke="white" />
+              <circle class="blob" cx="90%" cy="60%" r="90" fill="black" stroke="white" />
+              <circle class="blob" cx="30%" cy="90%" r="80" fill="black" stroke="white" />
+              <circle class="blob" cx="10%" cy="10%" r="80" fill="black" stroke="white" />
+              <circle class="blob" cx="50%" cy="10%" r="20" fill="black" stroke="white" />
+              <circle class="blob" cx="17%" cy="15%" r="70" fill="black" stroke="white" />
+              <circle class="blob" cx="40%" cy="20%" r="120" fill="black" stroke="white" />
+              <circle class="blob" cx="30%" cy="25%" r="30" fill="black" stroke="white" />
+              <circle class="blob" cx="10%" cy="50%" r="80" fill="black" stroke="white" />
+              <circle class="blob" cx="10%" cy="10%" r="80" fill="black" stroke="white" />
+              <circle class="blob" cx="70%" cy="90%" r="10" fill="black" stroke="white" />
+            </g>
+          </mask>
+        </svg>
+      </div>
+      <div class="main-bg-move">
+        <div class="main-bg">move</div>
+      </div>
+      <div class="main-banner">
+        <div class="main-banner-moon">
+          <div class="moon-wrapper">
+            <div class="moon">
+              <a href="#">
+                <span>
+                  '<br />
+                  Hello<br />
+                  Stranger!
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="main-ball"></div>
+      <div class="glowBall"></div>
+
+      <div class="circle circle01">
+        <div class="circle orbiting-circle01"></div>
+      </div>
+
+      <div class="circle orbitPathCentered border-blue orbitPath01-border"></div>
+      <div class="circle orbitPathCentered orbitPath01"></div>
+
+      <div class="circle orbitPathCentered border-blue orbitPath02-border"></div>
+      <div class="circle orbitPathCentered orbitPath02"></div>
+      <div class="circle circle02"></div>
+
+      <div class="circle border-orange circle03"></div>
+      <div class="circle circle04"></div>
+      <div class="scrollright">
+        <a href="#">
+        </a>
+      </div>
+      <div class="nav">
+        <p>
+          <a href="#">
+            M.E.S PORTFOLIO
+          </a>
+        </p>
+        <ul class="gnb">
+          <li><a href="#">ABOUT , </a></li>
+          <li><a href="#">WORK , </a></li>
+          <li style="display:none"><a href="#"></a></li>
+          <li><a href="#">PROJECT </a></li>
+        </ul>
+      </div>
+    </header>
+    <section class="section-cont">
+      <div class="scrollright2">
+        <a href="#">
+        </a>
+      </div>
+      <div class="scrollleft2">
+        <a href="#">
+        </a>
+      </div>
+      <div>
+        <div class="introduce">
+          I'm <a href="#" class="em">Chloe Moon</a> from Korea. <br />
+          I am A Creative UI/UX Designer <br />
+          and Front-End Developer. <br />
+          Feel Free to <span>Contact</span> me! <a href="#" class="moreinfo">more...</a>
+        </div>
+      </div>
+      <div class="mousemove">
+      </div>
+      <div class="info_popup outer">
+        <div class="info_popup_inner box">
+          <div class="info_title">PROFILE</div>
+          <div class="btn_close">
+            <a href="#">close</a>
+          </div>
+          <div class="info_content">
+           <div class="info_profile">
+             <img src="./images/profile.png" alt="#">
+             <div class="info_basic">
+              <p>MOON YISEUL</p>
+              <p>
+                DESIGNER <Br />
+               &DEVELOPER
+               </p>
+             </div>
+              <div class="info_det">
+                <p>1991.01.22</p>
+                <p>SEOUL, KOREA</p>
+                <p>010.4100.7122</p>
+                <p>EMAIL:eeesseul@gmail.com</p>
+                <p>GITHUB: @chloemoon</p>
+                <p style="margin-top:10px; font-weight: 800;">WHAT I CAN DO</p>
+                <p  style="margin-top:5px;font-weight: 600;"> HTML</p>
+                <p>#웹표준 #웹접근성 #시맨틱태그</p>
+                <p>#하드코딩 #모바일페이지 제작</p>
+                <p  style="margin-top:5px;font-weight: 600;"> CSS(SASS)</p>
+                <p>#CSS3 #반응형레이아웃</p>
+                <p>#미디어쿼리 #크로스브라우징</p>
+                <p>#Interactive Animation</p>
+                <p  style="margin-top:5px;font-weight: 600;"> JAVASCRIPT</p>
+                <p>#Vanilla JavaScript(ES6+)</p>
+                <p>#JQuery #AJAX #Plugin</p>
+              </div>
+           </div>
+           <div class="info_skills">
+             <div class="info_chrt">
+               <p>CHARACTER</p>
+               <div class="chrt_box">
+                <a href="#">good sence</a>
+                <a href="#">positive</a>
+                <a href="#">endeavor</a>
+                <a href="#">unique</a>
+                <a href="#">stylish</a>
+               </div>
+             </div>
+             <div class="info_tools">
+               <p>SKILLS</p>
+               <div class="skill_tools">
+                <div class="photoshop">PHOTOSHOP <span></span></div>
+                <div class="illust">ILLUSTRATOR <span></span></div>
+                <div class="xd">ADOBE XD <span></span></div>
+                <div class="html">HTML <span></span></div>
+                <div class="css">CSS(SASS) <span></span></div>
+                <div class="js">JAVASCRIPT <span></span></div>
+                <div class="JQUERY">JQUERY <span></span></div>
+               </div>
+             </div>
+           </div>
+
+          </div>
+        </div>
+    </section>
+    <section class="workboard">
+      <div class="scrollright3">
+        <a href="#">
+        </a>
+      </div>
+      <div class="scrollleft3">
+        <a href="#">
+        </a>
+      </div>
+      <div class="workboard_wrapper">
+        <div class="boardbox boardbox1"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox2"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox3"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox4"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox5"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox6"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox7"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox8"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox9"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox10"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox11"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox12"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox13"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox14"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox15"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox16"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox1"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox2"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox3"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox4"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox5"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox6"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox7"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox8"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox9"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox10"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox11"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox12"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox13"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox14"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox15"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox16"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox1"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox2"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox3"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox4"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox5"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox6"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox7"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox8"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox9"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox10"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox11"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox12"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox13"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox14"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox15"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox16"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox1"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox2"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox3"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox4"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox5"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox6"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox7"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox8"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox9"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox10"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox11"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox12"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox13"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox14"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox15"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox16"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox1"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox2"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox3"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox4"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox5"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox6"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox7"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox8"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox9"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox10"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox11"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox12"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox13"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox14"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox15"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox16"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox1"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox2"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox3"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox4"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox5"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox6"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox7"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox8"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox9"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox10"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox11"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox12"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox13"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox14"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox15"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox16"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox1"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox2"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox3"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox4"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox5"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox6"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox7"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox8"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox9"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox10"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox11"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox12"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox13"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox14"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox15"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox16"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox1"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox2"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox3"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox4"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox5"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox6"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox7"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox8"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox9"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox10"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox11"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox12"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox13"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox14"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox15"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox16"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox1"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox2"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox3"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox4"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox5"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox6"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox7"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox8"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox9"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox10"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox11"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox12"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox13"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox14"><a href="#">ARTS</a></div>
+        <div class="boardbox boardbox15"><a href="#">WEBSITE</a></div>
+        <div class="boardbox boardbox16"><a href="#">ARTS</a></div>
+        
+      </div>
+      <div class="boardbox_tit">
+        PORTFOLIO
+      </div>
+    </section>
+
+    <!-- 포트폴리오섹션 -->
+    <section class="portfolio">
+      <div class="portfolio_tit">
+        <div class="portfolio_tit_prenext">
+          <a href="#" class="port_tit_pre">prev</a>
+          <a href="#" class="port_tit_next">next</a>
+        </div>
+        <div class="portfolio_smalltitle">
+          <div class="portfolio_tit_sub on">
+            <a href="#">WEBSITE</a>
+          </div>
+        </div>
+      </div>
+      <div class="portfolio_frame">
+        <!-- 첫번째 프레임-->
+        <div class="portfolio_frame_inner glitch  visible website">
+          <div class="portfolio_website">
+            <ul class="portfolio_website_inner">
+              <li class="active">
+                <img class="first" src="./images/superfluid-thmb.png" alt="https://chloemoon.github.io/superfluid/">
+                <img style="opacity:0.2; transform:scale(2);" src="./images/glitch-bg.png" alt="#" class="glitch-box">
+              </li>
+              <li>
+                <img class="first" src="./images/nsad-thmb.JPG" alt="https://chloemoon.github.io/nsad/">
+                <img style="opacity:0.2; transform:scale(2);" src="./images/glitch-bg.png" alt="#" class="glitch-box">
+              </li>
+              <li>
+                <img class="first" src="./images/leica-thmb.JPG" alt="https://chloemoon.github.io/leica/">
+                <img style="opacity:0.2; transform:scale(2);" src="./images/glitch-bg.png" alt="#" class="glitch-box">
+              </li>
+              <li>
+                <img class="first" src="./images/line-thmb.JPG"
+                  alt="https://chloemoon.github.io/portfolio-naver-line/index.html">
+                <img style="opacity:0.2; transform:scale(2);" src="./images/glitch-bg.png" alt="#" class="glitch-box">
+              </li>
+              <li>
+                <img class="first" src="./images/celine-thmb.JPG" alt="https://chloemoon.github.io/celine/">
+                <img style="opacity:0.2; transform:scale(2);" src="./images/glitch-bg.png" alt="#" class="glitch-box">
+              </li>
+              <li>
+                <img class="first" src="./images/sampyo-thmb.JPG" alt="https://chloemoon.github.io/sampyo/">
+                <img style="opacity:0.3; transform:scale(2);" src="./images/glitch-bg.png" alt="#" class="glitch-box">
+              </li>
+            </ul>
+          </div>
+
+          <!-- 글리치 -->
+          <div class="glitch-frame">
+            <div class="glitch show">
+              <h1 class="superfluid">SUPERFLUID</h1>
+              <h1 class="superfluid">SUPERFLUID</h1>
+              <h1 class="superfluid">SUPERFLUID</h1>
+            </div>
+            <div class="glitch">
+              <h1>NSAD</h1>
+              <h1>NSAD</h1>
+              <h1>NSAD</h1>
+            </div>
+            <div class="glitch">
+              <h1>LEICA</h1>
+              <h1>LEICA</h1>
+              <h1>LEICA</h1>
+            </div>
+            <div class="glitch">
+              <h1>LINE</h1>
+              <h1>LINE</h1>
+              <h1>LINE</h1>
+            </div>
+            <div class="glitch">
+              <h1>CELINE</h1>
+              <h1>CELINE</h1>
+              <h1>CELINE</h1>
+            </div>
+            <div class="glitch">
+              <h1 class="sampyo">SAMPYO</h1>
+              <h1 class="sampyo">SAMPYO</h1>
+              <h1 class="sampyo">SAMPYO</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 큰화살표 -->
+      <div class="portfolio_pagination">
+        <div class="pagination_box on first ">
+          <a href="#" class="port_prev">PREV</a>
+          <a href="#" class="port_next">NEXT</a>
+        </div>
+      </div>
+      <!-- 바로가기 -->
+      <div class="port_connect">
+        <div class="port_det  active clearfix">
+          <div class="viewsites"><a href="https://chloemoon.github.io/superfluid" target="_blank">VIEWSITES</a></div>
+          <div class="viewdetails"><a href="#">DESCRIPTION</a></div>
+        </div>
+      </div>
+      <div class="port_website_title">
+        <div class="port_website_title_box show">
+          <div class="port_web_title_right on">SUPERFLUID</div>
+          <div class="port_web_title_right">NSAD</div>
+          <div class="port_web_title_right">LEICA</div>
+          <div class="port_web_title_right">NAVER LINE</div>
+          <div class="port_web_title_right">CELINE</div>
+          <div class="port_web_title_right">SAMPYO</div>
+        </div>
+      </div>
+      <!-- 엑스표 -->
+      <div class="xbox">
+        <a href="#">xbox</a>
+      </div>
+      <div class="description">
+        <div class="des_exit">
+          <a href="#">
+            <img src="./images/mouseX.png" alt="#">
+          </a>
+        </div>
+        <div class="des_inner">
+          <img class="on" src="./images/superfluid_des.png" alt="#">
+          <img src="./images/nsad_des.png" alt="#">
+          <img src="./images/leica-des.png" alt="#">
+          <img src="./images/naver-des.png" alt="#">
+          <img src="./images/celine-des.png" alt="#">
+          <img src="./images/sampyo-des.png" alt="#">
+        </div>
+      </div>
+    </section>
+    <section class="lastsec">
+      <div class="scrollleft4">
+        <a href="#">
+        </a>
+      </div>
+      <div class="lastsec-bg">
+        <a href="#">
+          <div class="last-container">
+            <div class="last-ball"></div>
+            <div class="last-ball2"></div>
+            <div class="last-title">UI / UX <br /> PROJECT</div>
+           </div>
+        </a>
+      </div>
+      <div class="last-tag">
+        <div><a href="#" class="google" alt="./images/google-uiux.png">#GOOGLE</a></div>
+        <div><a href="#" class="dodo-recycle" alt="./images/dodorecycle-uiux.png">#DODO-RECYCLE</a></div>
+      </div>
+      <div class="last-descript">
+        <div class="last_exit">
+          <a href="#">
+            <img src="./images/mouseX.png" alt="#">
+          </a>
+        </div>
+        <div class="last_des_inner">
+          <img src="./images/dodorecycle-uiux.png" alt="#">
+        </div>
+        <div class="last_des_title">
+          <a href="https://chloemoon.github.io/dodorecycle/" target="_blank" class="site">VIEW APP </a>
+          <a href="#" class="next-project">NEXT PROJECT</a>
+          <a href="#" class="prev-project">PREV PROJECT</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+
+</html>

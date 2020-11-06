@@ -1,0 +1,36 @@
+body,
+.bgImage {
+	margin: 0;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+}
+
+.bgImage {
+	position: absolute;
+	z-index: -1;
+}
+
+.blobCont {
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
+}
+
+@for $i from 1 through 18 {
+	$a: #{$i*90};
+	$b: #{$i*90+360};
+
+	.blob:nth-child(#{$i}) {
+		animation: move#{$i} 20s infinite linear;
+	}
+
+	@keyframes move#{$i} {
+		from {
+			transform: rotate(#{$a}deg) translate(200px, 0.1px) rotate(-#{$a}deg);
+		}
+		to {
+			transform: rotate(#{$b}deg) translate(200px, 0.1px) rotate(-#{$b}deg);
+		}
+	}
+}
