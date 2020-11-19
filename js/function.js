@@ -162,7 +162,7 @@ $('.portfolio >.portfolio_pagination>.pagination_box.first>.port_prev').on('clic
   if(idx>0){
     idx--;
   }else{
-    idx=5;
+    idx=6;
   }
 
   $thmbs.filter('.active').stop().fadeOut(1000).removeClass('active');
@@ -180,7 +180,7 @@ $('.portfolio >.portfolio_pagination>.pagination_box.first>.port_prev').on('clic
 
 // portfolio next
 $('.portfolio >.portfolio_pagination>.pagination_box.first>.port_next').on('click',function(e){
-  if(nowidx<5){
+  if(nowidx<6){
     nowidx++;
   }else{
     nowidx=0;
@@ -211,7 +211,7 @@ $smallprev.on('click',function(e){
   if(idx>0){
     idx--;
   }else{
-    idx=5;
+    idx=6;
   }
 
   $thmbs.filter('.active').stop().fadeOut(1000).removeClass('active');
@@ -229,7 +229,7 @@ $smallprev.on('click',function(e){
 
 
 $smallnext.on('click',function(e){
-  if(nowidx<5){
+  if(nowidx<6){
     nowidx++;
   }else{
     nowidx=0;

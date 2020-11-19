@@ -1627,6 +1627,7 @@ strong {
   height: 6vw;
   margin-left: -14vw;
   margin-top: -3vw;
+  color: #ACACAC;
   font-size: 5vw;
   line-height: 5vw;
   text-align: center;
@@ -2176,6 +2177,7 @@ strong {
 }
 .portfolio .port_connect > .port_det > .viewsites {
   text-indent: 12px;
+  margin-right: 10px;
 }
 .portfolio .port_connect .port_det.active {
   display: block;
@@ -2573,7 +2575,7 @@ strong {
 }
 .lastsec > .last-descript > .last_des_title > a {
   display: inline-block;
-  margin-right: 20px;
+  margin-right: 25px;
   color: #FCB9FD;
   font-size: 3vw;
   text-decoration: underline;
